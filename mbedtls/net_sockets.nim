@@ -29,8 +29,6 @@ type
   mbedtls_net_context* {.bycopy.} = object
     fd*: cint
 
-when defined(windows):
-  {.push dynlib: "ws2_32".}
 proc mbedtls_net_init*(ctx: ptr mbedtls_net_context) {.importc, cdecl.}
 proc mbedtls_net_connect*(ctx: ptr mbedtls_net_context; host: cstring;
                           port: cstring; proto: cint): cint {.importc, cdecl.}
@@ -54,6 +52,4 @@ proc mbedtls_net_recv_timeout*(ctx: pointer; buf: ptr byte; len: uint;
                                timeout: uint32): cint {.importc, cdecl.}
 proc mbedtls_net_close*(ctx: ptr mbedtls_net_context) {.importc, cdecl.}
 proc mbedtls_net_free*(ctx: ptr mbedtls_net_context) {.importc, cdecl.}
-when defined(windows):
-  {.pop.}
 {.pop.}
