@@ -98,6 +98,8 @@ var
   mbedtls_x509_crt_profile_next* {.importc.}: mbedtls_x509_crt_profile
   mbedtls_x509_crt_profile_suiteb* {.importc.}: mbedtls_x509_crt_profile
   mbedtls_x509_crt_profile_none* {.importc.}: mbedtls_x509_crt_profile
+when defined(windows):
+  {.push dynlib: "ws2_32".}
 proc mbedtls_x509_crt_parse_der*(chain: ptr mbedtls_x509_crt; buf: ptr byte;
                                  buflen: uint): cint {.importc, cdecl.}
 proc mbedtls_x509_crt_parse_der_with_ext_cb*(chain: ptr mbedtls_x509_crt;
@@ -191,6 +193,8 @@ proc mbedtls_x509write_crt_pem*(ctx: ptr mbedtls_x509write_cert;
                                 buf: ptr byte; size: uint; f_rng: proc (
     a1: pointer; a2: ptr byte; a3: uint): cint {.cdecl.}; p_rng: pointer): cint {.
     importc, cdecl.}
+when defined(windows):
+  {.pop.}
 {.pop.}
 
 import "error"
